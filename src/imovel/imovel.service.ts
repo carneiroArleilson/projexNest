@@ -6,7 +6,7 @@ import { CreateImovelDto } from './dto/create-imovel.dto';
 export class ImovelService {
   create(createImovelDto: CreateImovelDto) {
     createImovelDto = {
-      id: imovel[imovel.length - 1].id + 1,
+      id: imovel.length > 0 ? imovel[imovel.length - 1].id + 1 : 1,
       ...createImovelDto,
     };
     imovel.push(createImovelDto);

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { usuario } from 'src/data';
 import { CreateLoguinDto } from './dto/create-loguin.dto';
-import { UpdateLoguinDto } from './dto/update-loguin.dto';
 
 @Injectable()
 export class LoguinService {
@@ -13,10 +12,11 @@ export class LoguinService {
     return usuario;
   }
 
-  findOne({ email, senha }: { email: string; senha: string }) {
-    const sucess = usuario.find((lo) => lo.email === email).senha === senha;
+  async findOne({ email, senha }: { email: string; senha: string }) {
+    const data = await usuario.find((lo) => lo.email === email);
+    const sucess = data ? { sucess: true, id: data.id } : { sucess: false };
     return {
-      sucess,
+      ...sucess,
     };
   }
 }

@@ -1,15 +1,5 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { LoguinService } from './loguin.service';
-import { CreateLoguinDto } from './dto/create-loguin.dto';
-import { UpdateLoguinDto } from './dto/update-loguin.dto';
 
 @Controller('loguin')
 export class LoguinController {
@@ -20,8 +10,8 @@ export class LoguinController {
     return this.loguinService.findAll();
   }
 
-  @Get('entrar')
-  findOne(@Body() { email, senha }: { email: string; senha: string }) {
+  @Post('entrar')
+  async findOne(@Body() { email, senha }: { email: string; senha: string }) {
     return this.loguinService.findOne({ email, senha });
   }
 }

@@ -1,17 +1,24 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AppService } from './app.service';
 
-@Controller('prefixo')
+@Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get('test')
-  getHello(): string {
-    return this.appService.getHello();
+  @UseGuards(AuthGuard('local'))
+  @Post('auth/login')
+  async login(@Request() req) {
+    console.log(req);
+    return req.user;
   }
+  // constructor(private readonly appService: AppService) {}
 
-  @Get('test1')
-  acao(): string {
-    return 'FullCycle';
-  }
+  // @Get('test')
+  // getHello(): string {
+  //   return this.appService.getHello();
+  // }
+
+  // @Get('test1')
+  // acao(): string {
+  //   return 'FullCycle';
+  // }
 }

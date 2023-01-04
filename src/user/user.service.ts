@@ -21,12 +21,19 @@ export class UserService {
     return usuario.find((user) => user.email === email);
   }
 
-  update(id: number, updateUserDto: CreateUserDto) {
+  update(
+    id: number,
+    updateUserDto: {
+      name: string;
+      email: string;
+      senha: string;
+    },
+  ) {
     const index = usuario.findIndex((user) => user.id === id);
     usuario[index] = {
       id: usuario[index].id,
       ...updateUserDto,
     };
-    return usuario;
+    return usuario[index];
   }
 }
